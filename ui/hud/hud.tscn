@@ -1,0 +1,490 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://ui/hud/hud.gd" type="Script" id=1]
+[ext_resource path="res://assets/ui/ui_box.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/ui/grey_box.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/font/regular.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/ui/xp_bar.png" type="Texture" id=5]
+[ext_resource path="res://assets/ui/xp_bar_bit.png" type="Texture" id=6]
+[ext_resource path="res://ui/hud/custom_progress_bar.gd" type="Script" id=7]
+[ext_resource path="res://assets/ui/health_bar_bit.png" type="Texture" id=8]
+[ext_resource path="res://assets/ui/health_bar.png" type="Texture" id=9]
+[ext_resource path="res://assets/ui/magic_bar.png" type="Texture" id=10]
+[ext_resource path="res://assets/ui/magic_bar_bit.png" type="Texture" id=11]
+[ext_resource path="res://assets/ui/bonus_health_bar.png" type="Texture" id=12]
+[ext_resource path="res://assets/ui/bonus_health_bar_bit.png" type="Texture" id=13]
+[ext_resource path="res://assets/ui/bonus_magic_bar_bit.png" type="Texture" id=14]
+[ext_resource path="res://assets/ui/bonus_magic_bar.png" type="Texture" id=15]
+[ext_resource path="res://ui/hud/icon_stat.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/ui/strength_icon.png" type="Texture" id=17]
+[ext_resource path="res://assets/ui/speed_icon.png" type="Texture" id=18]
+[ext_resource path="res://assets/ui/wisdom_icon.png" type="Texture" id=19]
+[ext_resource path="res://assets/ui/defence_icon.png" type="Texture" id=20]
+[ext_resource path="res://ui/hud/minimap.gd" type="Script" id=21]
+[ext_resource path="res://assets/ui/minimap_pivot.png" type="Texture" id=22]
+[ext_resource path="res://assets/ui/ability_container.png" type="Texture" id=23]
+[ext_resource path="res://assets/ui/ability_cooldown.png" type="Texture" id=24]
+[ext_resource path="res://ui/hud/ability_container.gd" type="Script" id=25]
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconBox" parent="." instance=ExtResource( 2 )]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="Icon" type="TextureRect" parent="IconBox"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -4.0
+margin_top = -4.0
+margin_right = 4.0
+margin_bottom = 4.0
+rect_min_size = Vector2( 8, 8 )
+mouse_filter = 2
+
+[node name="LevelBox" parent="IconBox" instance=ExtResource( 3 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -6.03056
+margin_top = -6.03056
+margin_right = 0.969437
+margin_bottom = 0.969437
+
+[node name="LevelLabel" type="Label" parent="IconBox/LevelBox"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.5
+margin_top = -2.5
+margin_right = 3.5
+margin_bottom = 3.5
+rect_min_size = Vector2( 6, 6 )
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 4 )
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XpBar" type="TextureRect" parent="."]
+margin_left = 4.0
+margin_top = 23.0
+margin_right = 68.0
+margin_bottom = 27.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+child_receiver_path = NodePath("../XpBar/HBoxContainer")
+progress_bit = ExtResource( 6 )
+bits = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="XpBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 1.0
+margin_right = -2.0
+margin_bottom = -1.0
+mouse_filter = 2
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="XpBar"]
+margin_left = 1.0
+margin_top = 5.0
+margin_right = 17.0
+margin_bottom = 11.0
+rect_min_size = Vector2( 84, 6 )
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 4 )
+text = "0000 / 0000"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = -52.0
+margin_right = 10.0
+margin_bottom = -6.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+child_receiver_path = NodePath("VBoxContainer")
+progress_bit = ExtResource( 8 )
+bits = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HealthBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.0
+margin_top = -21.0
+margin_right = 2.0
+margin_bottom = 21.0
+mouse_filter = 2
+custom_constants/separation = -2
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HealthBar"]
+margin_left = -1.0
+margin_top = -8.0
+margin_right = 5.0
+margin_bottom = -2.0
+custom_fonts/font = ExtResource( 4 )
+text = "000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BonusHealthBar" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -30.0
+margin_right = 13.0
+margin_bottom = -7.0
+mouse_filter = 2
+texture = ExtResource( 12 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+child_receiver_path = NodePath("VBoxContainer")
+progress_bit = ExtResource( 13 )
+bits = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BonusHealthBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1.5
+margin_top = -9.5
+margin_right = 0.5
+margin_bottom = 10.5
+mouse_filter = 2
+custom_constants/separation = 0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BonusHealthBar"]
+margin_top = -23.0
+margin_right = 22.0
+margin_bottom = -17.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 4 )
+text = "+00"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconStats" type="GridContainer" parent="."]
+margin_left = 24.0
+margin_top = 5.0
+margin_right = 53.0
+margin_bottom = 19.0
+mouse_filter = 2
+custom_constants/hseparation = 19
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StrengthIcon" parent="IconStats" instance=ExtResource( 16 )]
+texture = ExtResource( 17 )
+
+[node name="DefenceIcon" parent="IconStats" instance=ExtResource( 16 )]
+margin_left = 24.0
+margin_right = 29.0
+texture = ExtResource( 20 )
+
+[node name="WisdomIcon" parent="IconStats" instance=ExtResource( 16 )]
+margin_top = 9.0
+margin_bottom = 14.0
+texture = ExtResource( 19 )
+
+[node name="AgilityIcon" parent="IconStats" instance=ExtResource( 16 )]
+margin_left = 24.0
+margin_top = 9.0
+margin_right = 29.0
+margin_bottom = 14.0
+texture = ExtResource( 18 )
+
+[node name="MagicBar" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 17.0
+margin_top = -29.0
+margin_right = 22.0
+margin_bottom = -6.0
+mouse_filter = 2
+texture = ExtResource( 10 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+child_receiver_path = NodePath("VBoxContainer")
+progress_bit = ExtResource( 11 )
+bits = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MagicBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1.5
+margin_top = -10.5
+margin_right = 1.5
+margin_bottom = 9.5
+mouse_filter = 2
+custom_constants/separation = 0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MagicBar"]
+margin_top = -7.0
+margin_right = 16.0
+margin_bottom = -1.0
+custom_fonts/font = ExtResource( 4 )
+text = "000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BonusMagicBar" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 22.0
+margin_top = -22.0
+margin_right = 24.0
+margin_bottom = -8.0
+mouse_filter = 2
+texture = ExtResource( 15 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+child_receiver_path = NodePath("VBoxContainer")
+progress_bit = ExtResource( 14 )
+bits = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BonusMagicBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1.0
+margin_top = -5.0
+margin_bottom = 6.0
+mouse_filter = 2
+custom_constants/separation = 1
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BonusMagicBar"]
+margin_left = 2.0
+margin_top = -7.0
+margin_right = 24.0
+margin_bottom = -1.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 4 )
+text = "+00"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MapBox" parent="." instance=ExtResource( 2 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -60.0
+margin_top = -46.0
+margin_right = -4.0
+margin_bottom = -6.0
+
+[node name="Minimap" type="TextureRect" parent="MapBox"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.0
+margin_top = -16.0
+margin_right = 24.0
+margin_bottom = 16.0
+rect_clip_content = true
+expand = true
+script = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pivot" type="TextureRect" parent="MapBox/Minimap"]
+margin_right = 6.0
+margin_bottom = 4.0
+texture = ExtResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AbilityContainer" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -20.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = 42.0
+texture = ExtResource( 23 )
+script = ExtResource( 25 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AbilityContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -4.0
+margin_top = -15.0
+margin_right = 4.0
+margin_bottom = 15.0
+custom_constants/separation = 3
+
+[node name="WeakAbility" type="TextureRect" parent="AbilityContainer/VBoxContainer"]
+margin_right = 8.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="CooldownLayer" type="TextureProgress" parent="AbilityContainer/VBoxContainer/WeakAbility"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 32.0
+value = 1.0
+texture_progress = ExtResource( 24 )
+fill_mode = 3
+tint_progress = Color( 0.53, 0.53, 0.53, 0.8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cost" type="Label" parent="AbilityContainer/VBoxContainer/WeakAbility"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -15.0
+margin_top = -4.0
+margin_right = -5.0
+margin_bottom = 4.0
+custom_fonts/font = ExtResource( 4 )
+text = "10"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="AbilityContainer/VBoxContainer/WeakAbility"]
+
+[node name="StrongAbility" type="TextureRect" parent="AbilityContainer/VBoxContainer"]
+margin_top = 11.0
+margin_right = 8.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="CooldownLayer" type="TextureProgress" parent="AbilityContainer/VBoxContainer/StrongAbility"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 32.0
+value = 1.0
+texture_progress = ExtResource( 24 )
+fill_mode = 3
+tint_progress = Color( 0.53, 0.53, 0.53, 0.8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cost" type="Label" parent="AbilityContainer/VBoxContainer/StrongAbility"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -15.0
+margin_top = -4.0
+margin_right = -5.0
+margin_bottom = 4.0
+custom_fonts/font = ExtResource( 4 )
+text = "10"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="AbilityContainer/VBoxContainer/StrongAbility"]
+
+[node name="UltimateAbility" type="TextureRect" parent="AbilityContainer/VBoxContainer"]
+margin_top = 22.0
+margin_right = 8.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="CooldownLayer" type="TextureProgress" parent="AbilityContainer/VBoxContainer/UltimateAbility"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 32.0
+value = 1.0
+texture_progress = ExtResource( 24 )
+fill_mode = 3
+tint_progress = Color( 0.53, 0.53, 0.53, 0.8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cost" type="Label" parent="AbilityContainer/VBoxContainer/UltimateAbility"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -15.0
+margin_top = -4.0
+margin_right = -5.0
+margin_bottom = 4.0
+custom_fonts/font = ExtResource( 4 )
+text = "10"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="AbilityContainer/VBoxContainer/UltimateAbility"]

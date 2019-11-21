@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/font/regular.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/hud/icon_stat.gd" type="Script" id=2]
+
+[node name="IconStat" type="TextureRect"]
+margin_right = 5.0
+margin_bottom = 5.0
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 6.0
+margin_top = -5.96046e-08
+margin_right = 24.0
+margin_bottom = 6.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "000"
+__meta__ = {
+"_edit_use_anchors_": false
+}

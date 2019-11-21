@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/tileset/debug_tileset.png" type="Texture" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Red" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+
+[node name="Orange" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 1
+
+[node name="Yellow" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 2
+
+[node name="Green" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 3
+
+[node name="Blue" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 4
+
+[node name="Purple" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 5
+
+[node name="White" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 6
+
+[node name="Gray" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 7
+
+[node name="Black" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 8

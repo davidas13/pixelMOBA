@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://player/local_player.gd" type="Script" id=1]
+[ext_resource path="res://player/camera.gd" type="Script" id=2]
+[ext_resource path="res://ui_mockup.png" type="Texture" id=3]
+[ext_resource path="res://ui/hud/hud.tscn" type="PackedScene" id=5]
+
+[node name="LocalPlayer" type="Node2D" groups=[
+"local_player",
+"player",
+]]
+script = ExtResource( 1 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
+update_scale = false
+
+[node name="Camera2D" type="Camera2D" parent="RemoteTransform2D" groups=[
+"local_camera",
+]]
+current = true
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 5 )]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+visible = false
+margin_left = -0.28817
+margin_top = -0.152885
+margin_right = 319.712
+margin_bottom = 179.847
+mouse_filter = 2
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2( 8, 8 )

@@ -1,0 +1,65 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://character/level_sheet.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+xp_list = [ 0, 100, 200, 300, 400, 500, 600, 700 ]
+stats = [ {
+"agility": 15,
+"defence": 1,
+"max_health": 1,
+"max_magic": 1,
+"strength": 1,
+"wisdom": 1
+}, {
+"agility": 2,
+"defence": 2,
+"max_health": 2,
+"max_magic": 2,
+"strength": 2,
+"wisdom": 2
+}, {
+"agility": 3,
+"defence": 3,
+"max_health": 3,
+"max_magic": 3,
+"strength": 3,
+"wisdom": 3
+}, {
+"agility": 4,
+"defence": 4,
+"max_health": 4,
+"max_magic": 4,
+"strength": 4,
+"wisdom": 4
+}, {
+"agility": 5,
+"defence": 5,
+"max_health": 5,
+"max_magic": 5,
+"strength": 5,
+"wisdom": 5
+}, {
+"agility": 6,
+"defence": 6,
+"max_health": 6,
+"max_magic": 6,
+"strength": 6,
+"wisdom": 6
+}, {
+"agility": 7,
+"defence": 7,
+"max_health": 7,
+"max_magic": 7,
+"strength": 7,
+"wisdom": 7
+}, {
+"agility": 8,
+"defence": 8,
+"max_health": 8,
+"max_magic": 8,
+"strength": 8,
+"wisdom": 8
+} ]
+abilities = [ [ null, null, null ], [ null, null, null ], [ null, null, null ], [ null, null, null ], [ null, null, null ], [ null, null, null ], [ null, null, null ], [ null, null, null ] ]
