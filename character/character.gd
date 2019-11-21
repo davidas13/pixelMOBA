@@ -21,9 +21,9 @@ signal ability_used(ability, idx)
 
 onready var area := $Area2D
 onready var sprite := $Sprite
+onready var tween := $Tween
 
 export var level_sheet: Resource = null
-
 
 var stats := {
 	"health": 0,
@@ -49,6 +49,8 @@ var bonus_stats := {
 
 var level := 0
 var xp := 0
+var abilities := [null, null, null]
+var ability_cooldown := []
 
 var path := PoolVector2Array()
 
@@ -87,6 +89,8 @@ func _physics_process(delta: float) -> void:
 
 
 func initialize() -> void:
+	emit_signal("bonus_changed", bonus_stats)
+	_learn_abilities()
 	emit_signal("level_changed", level)
 	emit_signal("xp_changed", xp, level_sheet.get_required_xp(level))
 	_update_stats()
@@ -111,8 +115,7 @@ func gain_experience(amount: int) -> void:
 			xp = 0
 			break
 	
-	# TODO: learn abilities
-	
+	_learn_abilities()
 	emit_signal("xp_changed", xp, required)
 	_update_stats()
 	emit_signal("level_changed", level)
@@ -135,7 +138,7 @@ func take_damage(amount: int, source = null) -> void:
 # warning-ignore:narrowing_conversion
 			var new_bonus: int = max(0, bonus_health - amount)
 			bonus_stats["health"] = new_bonus
-			emit_signal("bonus_changed", "health", new_bonus)
+			emit_signal("bonus_changed", bonus_stats)
 			amount -= bonus_health
 		
 		if amount > 0:
@@ -144,6 +147,39 @@ func take_damage(amount: int, source = null) -> void:
 			if stats.health <= 0:
 				emit_signal("died", source)
 				source.emit_signal("killed", self)
+
+
+func use_ability(idx: int) -> void:
+	var ability: Ability = abilities[idx]
+	if ability && !(idx in ability_cooldown):
+		var cost := ability.cost
+		var bonus_magic: int = bonus_stats.get("magic", 0)
+		if cost <= bonus_magic + stats.magic:
+			if bonus_magic > 0:
+				var new_bonus: int = max(0, bonus_magic - cost)
+				bonus_stats["magic"] = new_bonus
+				emit_signal("bonus_changed", bonus_stats)
+				cost -= bonus_magic
+			
+			if cost > 0:
+				stats.magic -= cost
+				cost = 0
+				emit_signal("stats_changed", stats)
+			
+			if cost <= 0:
+				ability.action_script.use(self)
+				emit_signal("ability_used", ability, idx)
+				ability_cooldown.append(idx)
+				yield(get_tree().create_timer(ability.cooldown), "timeout")
+				ability_cooldown.erase(idx)
+
+
+func _learn_abilities() -> void:
+	for i in range(level_sheet.abilities[level].size()):
+		var ability: Ability = level_sheet.abilities[level][i]
+		if ability:
+			abilities[i] = ability
+			emit_signal("ability_changed", ability, i)
 
 
 func _update_stats() -> void:

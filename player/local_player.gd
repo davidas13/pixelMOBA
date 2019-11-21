@@ -41,3 +41,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		var path := arena.get_world_path(character.area.position, transformed_position)
 		character.path = path
 		$Line2D.points = path
+	
+	if event.is_action_pressed("ability_use_weak"):
+		character.use_ability(0)
+	if event.is_action_pressed("ability_use_strong"):
+		character.use_ability(1)
+	if event.is_action_pressed("ability_use_ultimate"):
+		character.use_ability(2)

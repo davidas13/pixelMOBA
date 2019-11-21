@@ -15,7 +15,7 @@ func _character_ability_changed(ability: Ability, idx: int) -> void:
 	var cost_label := rect.get_node("Cost")
 	if ability:
 		rect.texture = ability.texture
-		cost_label.text = ability.cost
+		cost_label.text = str(ability.cost)
 	else:
 		rect.texture = null
 		cost_label.text = ""
