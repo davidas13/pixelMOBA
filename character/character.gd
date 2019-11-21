@@ -16,6 +16,9 @@ signal died(source)
 # warning-ignore:unused_signal
 signal killed(target)
 
+signal ability_changed(ability, idx)
+signal ability_used(ability, idx)
+
 onready var area := $Area2D
 onready var sprite := $Sprite
 
